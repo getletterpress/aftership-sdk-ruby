@@ -75,6 +75,15 @@ module AfterShip
         new(:put, "trackings/#{slug}/#{tracking_number}", {}, body).call
       end
 
+      #PUT /trackings/:id
+      def self.update_by_id(id, params = {})
+        if id.empty? || id.nil?
+          raise ArgumentError.new('id is required.')
+        end
+        body = {:tracking => params}
+        new(:put, "trackings/#{id}", {}, body).call
+      end
+
       #Deprecated
       #POST /trackings/:slug/:tracking_number/reactivate
       def self.reactivate(slug, tracking_number)
